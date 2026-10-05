@@ -90,7 +90,7 @@ types.ColorReplyKeyboardMarkup = ColorReplyKeyboardMarkup
 
 # CONFIG
 # =========================
-TOKEN = os.getenv("BOT_TOKEN", "8964138591:AAHaGnoGPR70-t1EoghqvkX7iIAdCiFiLKU").strip()
+TOKEN = os.getenv("BOT_TOKEN", "8964138591:AAFK-qmmZyAxmro8r1sDXBkf6Dq8OwSCEyY").strip()
 ADMIN_ID = int(os.getenv("ADMIN_ID", "7817705450"))
 REFERRAL_BONUS = 1.00  # Tk reward for each new user who completes required channel checks
 if not TOKEN:
@@ -1244,6 +1244,29 @@ def del_script(call):
 # =========================
 # START BOT
 # =========================
+# =========================
+# RENDER WEB SERVER + BOT
+# =========================
+from flask import Flask
+import threading
+
+app = Flask(__name__)
+
+@app.route("/")
+def home():
+    return "ASIF PREMIUM SHOP BOT is running!", 200
+
+@app.route("/health")
+def health():
+    return "OK", 200
+
+def run_web():
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
+
+print("Starting Render web server...")
+threading.Thread(target=run_web, daemon=True).start()
+
 print("Bot starting...")
 while True:
     try:
